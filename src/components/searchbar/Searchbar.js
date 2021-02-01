@@ -1,28 +1,29 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext } from "react";
 
 // Styles
-
 import "./Searchbar.css";
-// Assets
 
+// Assets
 import CloseIcon from "@material-ui/icons/Close";
 
-function SearchBar() {
-  const [filterDrawerVisible, setFilterDrawerVisible] = useState(false);
+// Context
+import { StaysContext } from "../../context/index";
 
-  const handleOpenClick = () => {
-    console.log("Opening filter drawer");
-    setFilterDrawerVisible(true);
-  };
-
-  const handleCloseClick = () => {
-    console.log("Closing filter drawer");
-    setFilterDrawerVisible(false);
-  };
+function SearchBar(props) {
+  const appContext = useContext(StaysContext);
+  console.log("appContext in searchbar***", appContext);
+  const {
+    filterDrawerVisible,
+    handleOpenFilterDrawerClick,
+    handleCloseFilterDrawerClick,
+  } = appContext;
 
   return (
     <Fragment>
-      <div className="airbnb-mock__search-container" onClick={handleOpenClick}>
+      <div
+        className="airbnb-mock__search-container"
+        onClick={handleOpenFilterDrawerClick}
+      >
         <div className="airbnb-mock__searchbar">
           <input
             className="searchbar__input searchbar__input--location"
@@ -57,7 +58,7 @@ function SearchBar() {
             <p>Edit your search</p>
             <button
               className="filter-drawer__close-button"
-              onClick={handleCloseClick}
+              onClick={handleCloseFilterDrawerClick}
             >
               <CloseIcon />
             </button>

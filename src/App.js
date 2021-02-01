@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 // Styles
 import "./App.css";
@@ -6,11 +6,16 @@ import "./App.css";
 // Assets
 import logo from "./images/logo.svg";
 
-// Components
+// Context
+import { StaysContext } from "./context/index";
 
+// Components
 import Searchbar from "./components/searchbar/Searchbar";
 
 function App() {
+  const appContext = useContext(StaysContext);
+  console.log("appContext in app***", appContext);
+
   return (
     <div className="App">
       <div className="airbnb-mock__container">
