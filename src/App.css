@@ -1,8 +1,8 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
 .App {
   padding: 20px 10px;
   position: relative;
 }
-
-/* .airbnb-mock__container {
-
-} */
