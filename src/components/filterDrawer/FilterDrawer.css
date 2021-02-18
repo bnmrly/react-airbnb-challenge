@@ -1,0 +1,182 @@
+.airbnb-mock__filter-drawer-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  padding: 20px 10px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 1px solid red;
+}
+
+.filter-drawer__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* revisit */
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.filter-drawer__header-text {
+  margin: 0;
+}
+
+.filter-drawer__close-button {
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  border-width: 0;
+  /* hack below - revisit */
+  margin: 0 0 -4px 0;
+  padding: 0;
+}
+
+.filter-drawer__container {
+  position: relative;
+  /* prevents search button moving up when toggling location and guest container */
+  height: 60vh;
+}
+
+.filter-drawer__form {
+  border-radius: 16px;
+  box-shadow: 0px 1px 6px rgb(0 0 0 / 10%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 35px;
+}
+
+.filter-drawer__input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input__container {
+  font-family: "Mulish", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* revisit size 56 or 57?? */
+  height: 55px;
+  padding: 0 26px;
+}
+
+.input__container--location {
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.filter-drawer__input {
+  border-color: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+}
+
+.filter-drawer__label {
+  padding-bottom: 5px;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 11px;
+}
+
+.filter-drawer-form_submit-button {
+  position: absolute;
+  bottom: -9vh;
+  width: 126px;
+  height: 48px;
+  background-color: rgba(235, 87, 87, 0.9);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: inherit;
+  /* does this center it? */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.filter-drawer-form-submit-button__icon {
+  margin-right: 5px;
+}
+
+/* .filter-drawer__location-guests-container {
+ 
+} */
+
+.filter-drawer__filter {
+  font-family: "Mulish", sans-serif;
+}
+
+.filter-location__list {
+  list-style-type: none;
+  padding: 0 0 0 16px;
+}
+
+.filter-location__list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+  cursor: pointer;
+  font-family: "Mulish", sans-serif;
+}
+
+.filter-location-list-item__icon {
+  padding-right: 8px;
+}
+
+/* Guests */
+
+.filter-drawer-guests__container {
+  padding: 0 16px;
+}
+
+.filter-drawer-guests__container--adults {
+  margin-bottom: 50px;
+  padding: 0 16px;
+}
+
+.filter-drawer-guests__title {
+  font-weight: 800;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+.filter-drawer__meta {
+  margin: 0 0 15px 0;
+}
+
+.filter-drawer-guests__button-container {
+  display: flex;
+  align-items: center;
+}
+
+.filter-drawer__guest-button {
+  height: 23px;
+  width: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #828282;
+  color: #828282;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+/* .filter-drawer__guest-button:disabled {
+  color: #cccccc;
+  border: 1px solid #cccccc;
+} */
+
+.filter-drawer-guest-button__decrement--disabled-true {
+  color: #cccccc;
+  border: 1px solid #cccccc;
+}
+
+.filter-drawer-guest__number-value {
+  margin: 0 15px;
+}

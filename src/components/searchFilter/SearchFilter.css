@@ -1,0 +1,47 @@
+.airbnb-mock__search-bar-container {
+  margin: 40px;
+}
+
+.airbnb-mock__search-bar-container--filter-drawer-visible-true {
+  opacity: 0;
+}
+
+.airbnb-mock__search-form {
+  margin-top: 40px;
+}
+
+.searchbar__input-container {
+  border-radius: 16px;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
+  height: 55px;
+  /* display: flex; */
+  /* see if alternative to this not taking up full width */
+  display: inline-flex;
+  align-items: center;
+  /* prevents cutting off of border-radius */
+  overflow: hidden;
+}
+
+.searchbar__input {
+  font-family: "Mulish", sans-serif;
+  border-color: transparent;
+  outline: none;
+  height: 55px;
+  border: none;
+}
+
+.searchbar__input {
+  padding: 0 16px;
+  border-right: 1px solid #f2f2f2;
+}
+
+.searchbar__button {
+  background-color: inherit;
+  height: 55px;
+  width: 55px;
+  border-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(235, 87, 87, 0.9);
+}

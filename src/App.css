@@ -6,3 +6,7 @@ body {
   padding: 20px 10px;
   position: relative;
 }
+
+.airbnb-mock__logo--filter-drawer-visible-true {
+  opacity: 0;
+}

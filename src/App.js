@@ -10,17 +10,25 @@ import logo from "./images/logo.svg";
 import { StaysContext } from "./context/index";
 
 // Components
-import Searchbar from "./components/searchbar/Searchbar";
+import SearchFilter from "./components/searchFilter/SearchFilter";
+import FilterDrawer from "./components/filterDrawer/FilterDrawer";
+// import Cards from "./components/cards/Cards";
 
 function App() {
   const appContext = useContext(StaysContext);
-  console.log("appContext in app***", appContext);
+  const { filterDrawerVisible } = appContext;
 
   return (
     <div className="App">
       <div className="airbnb-mock__container">
-        <img src={logo} alt="logo" />
-        <Searchbar />
+        <img
+          src={logo}
+          alt="logo"
+          className={`airbnb-mock__logo airbnb-mock__logo--filter-drawer-visible-${filterDrawerVisible}`}
+        />
+        <SearchFilter />
+        <FilterDrawer />
+        {/* <Cards /> */}
       </div>
     </div>
   );
