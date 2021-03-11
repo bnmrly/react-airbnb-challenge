@@ -1,3 +1,8 @@
+.airbnb-mock__heading {
+  font-size: 1.1rem;
+  color: #333333;
+}
+
 .airbnb-mock__holiday-title {
   font-weight: bold;
   font-size: 24px;
@@ -11,11 +16,12 @@
 
 .airbnb-mock__card {
   margin-right: 30px;
+  margin-bottom: 35px;
   width: 395px;
 }
 .airbnb-mock__image-container {
   height: 269px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   border-radius: 15px;
 }
 
@@ -26,7 +32,9 @@
 .card__meta-container {
   display: flex;
   align-items: center;
-  min-height: 65px;
+  min-height: 60px;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
 }
 
 .card__meta-superhost {
@@ -35,6 +43,8 @@
   font-weight: bold;
   border: 1px solid #4f4f4f;
   border-radius: 12px;
+  text-transform: uppercase;
+  font-size: 0.65rem;
 }
 
 .card__meta-type,
@@ -43,6 +53,7 @@
   font-size: 14px;
   line-height: 17px;
   color: #828282;
+  margin: 0;
 }
 
 .card__meta-beds {
@@ -51,12 +62,23 @@
 
 .card-meta-rating__container {
   display: flex;
-  /* mimics flex-end */
+  align-items: center;
   margin-left: auto;
 }
 
 .airbnb-mock__rating-image {
   margin-right: 7px;
+}
+
+.card__meta-rating {
+  color: #4f4f4f;
+  margin: 0;
+}
+
+.card__meta-title {
+  margin: 0;
+  flex-basis: 100%;
+  font-size: 0.9rem;
 }
 
 .airbnb-mock__search-filter-container {
@@ -84,6 +106,7 @@
 .airbnb-mock__result-count {
   display: inline-block;
   color: #4f4f4f;
+  font-size: 0.9rem;
 }
 
 .airbnb-mock__no-results {
