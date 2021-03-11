@@ -44,7 +44,7 @@ function SearchBar() {
               onClick={handleOpenLocationFilterChange}
             />
             <div
-              className="searchbar__guests-container"
+              className={`searchbar__guests-container searchbar__guests-container--${guestsNumber}-guests`}
               onClick={handleOpenGuestFilterChange}
             >
               {guestsNumber < 1 ? "Add Guests" : `${guestsNumber} guests`}

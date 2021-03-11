@@ -38,6 +38,10 @@
   align-items: center;
 }
 
+.searchbar__guests-container--0-guests {
+  color: #bdbdbd;
+}
+
 .searchbar__submit {
   background-color: inherit;
   height: 55px;

@@ -1,15 +1,18 @@
 .airbnb-mock__filter-drawer-container {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+  top: 0;
+  right: 0;
+  left: 0;
   padding: 20px 10px;
   height: 80vh;
   display: flex;
   flex-direction: column;
   padding: 0;
-  /* border: 1px solid red; */
   background-color: white;
+}
+
+.airbnb-mock__filter-drawer {
+  padding: 20px 10px;
 }
 
 .filter-drawer__header {
@@ -76,6 +79,10 @@
   padding: 0;
 }
 
+.filter-drawer__input--guests.guests-0 {
+  color: #bdbdbd;
+}
+
 .filter-drawer__label {
   padding-bottom: 5px;
   text-transform: uppercase;
@@ -85,7 +92,7 @@
 
 .filter-drawer-form_submit-button {
   position: absolute;
-  bottom: -9vh;
+  bottom: -10vh;
   width: 126px;
   height: 48px;
   background-color: rgba(235, 87, 87, 0.9);
@@ -96,7 +103,6 @@
   align-items: center;
   justify-content: center;
   border-width: inherit;
-  /* does this center it? */
   left: 50%;
   transform: translateX(-50%);
 }

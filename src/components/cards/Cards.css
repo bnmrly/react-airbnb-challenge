@@ -83,6 +83,7 @@
 
 .airbnb-mock__result-count {
   display: inline-block;
+  color: #4f4f4f;
 }
 
 .airbnb-mock__no-results {
