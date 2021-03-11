@@ -10,7 +10,7 @@ function Cards() {
 
   return (
     <Fragment>
-      {searchResults.length && (
+      {searchResults.length > 0 && (
         <div className="airbnb-mock__text-container">
           <h1 className="airbnb-mock__heading">
             {" "}
@@ -58,7 +58,7 @@ function Cards() {
             </div>
           ))
         ) : (
-          <h1>Loading...</h1>
+          <h2 className="airbnb-mock__no-results">No results available</h2>
         )}
       </div>
     </Fragment>
