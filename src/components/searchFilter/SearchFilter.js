@@ -17,18 +17,10 @@ function SearchBar() {
     handleOpenLocationFilterChange,
     handleOpenGuestFilterChange,
     guestSearchInput,
-    totalGuestNumber,
-    locationSearchOption,
     handleSearchFormSubmit,
+    guestsNumber,
+    location,
   } = appContext;
-
-  const guestsNumber =
-    qs.parse(window.location.search, { ignoreQueryPrefix: true }).guests ||
-    totalGuestNumber;
-
-  const location =
-    qs.parse(window.location.search, { ignoreQueryPrefix: true }).location ||
-    locationSearchOption;
 
   const disabled = guestsNumber < 1 || !location;
 
