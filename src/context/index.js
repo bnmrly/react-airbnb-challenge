@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
+import qs from "qs";
 
 const StaysContext = React.createContext();
-
-//  SIMPLIFY THIS FILE
 
 const StaysProvider = (props) => {
   const [filterDrawerVisible, setFilterDrawerVisible] = useState(false);
@@ -15,15 +14,27 @@ const StaysProvider = (props) => {
   const [adultGuestNumber, setAdultGuestNumber] = useState(0);
   const [childGuestNumber, setChildGuestNumber] = useState(0);
   const [totalGuestNumber, setTotalGuestNumber] = useState(0);
-  const [
-    adultDecrementButtonDisabled,
-    setAdultDecrementButtonDisabled,
-  ] = useState(true);
 
-  const [
-    childDecrementButtonDisabled,
-    setChildDecrementButtonDisabled,
-  ] = useState(true);
+  const handleOpenLocationFilterChange = () => {
+    setFilterDrawerVisible(true);
+    setLocationFilterVisible(true);
+    setGuestFilterVisible(false);
+  };
+
+  const handleOpenGuestFilterChange = () => {
+    setFilterDrawerVisible(true);
+    setGuestFilterVisible(true);
+    setLocationFilterVisible(false);
+  };
+
+  // manage with state
+  const handlelocationSearchChange = (e) => {
+    setLocationSearchOption(e.target.innerText);
+  };
+
+  // const guestSearchInput = useRef(null);
+
+  // const locationSearchInput = useRef(null);
 
   const uniqueCities =
     stays.length > 0
@@ -36,104 +47,78 @@ const StaysProvider = (props) => {
     fetch(url)
       .then((response) => response.json())
       .then((staysData) => {
-        console.dir(staysData);
         setStays(staysData);
+
+        if (staysData.length > 0) {
+          const defaultLocation = `${staysData[0].city}, ${staysData[0].country}`;
+          if (!locationSearchOption) {
+            setLocationSearchOption(defaultLocation);
+          }
+        }
       })
       .catch((err) => console.log(err.message));
   };
 
-  const handleOpenFilterDrawerChange = () => setFilterDrawerVisible(true);
-
-  const handleCloseFilterDrawerChange = () => setFilterDrawerVisible(false);
-
-  const handleOpenLocationFilterChange = () => {
-    // do i want conditional checks in these?
-    setFilterDrawerVisible(true);
-    setLocationFilterVisible(true);
-    setGuestFilterVisible(false);
+  const handleSearchFormSubmit = (e) => {
+    // e.preventDefault();
+    // console.log("this is e", e);
+    console.log("this is stays", stays);
+    // e.preventDefault();
+    // this fn displays properties
   };
-
-  const handleOpenGuestFilterChange = () => {
-    setFilterDrawerVisible(true);
-    setGuestFilterVisible(true);
-    setLocationFilterVisible(false);
-  };
-
-  const handlelocationSearchChange = (e) =>
-    setLocationSearchOption(e.target.innerText);
-
-  const incrementAdultGuestNumber = () => {
-    if (adultDecrementButtonDisabled) {
-      setAdultDecrementButtonDisabled(!adultDecrementButtonDisabled);
-    }
-    setAdultGuestNumber(adultGuestNumber + 1);
-    setTotalGuestNumber(totalGuestNumber + 1);
-  };
-
-  const decrementAdultGuestNumber = () => {
-    if (adultGuestNumber > 0) {
-      setAdultGuestNumber(adultGuestNumber - 1);
-      setTotalGuestNumber(totalGuestNumber - 1);
-    } else {
-      setAdultDecrementButtonDisabled(!adultDecrementButtonDisabled);
-    }
-  };
-
-  const incrementChildGuestNumber = () => {
-    if (childDecrementButtonDisabled) {
-      setChildDecrementButtonDisabled(!childDecrementButtonDisabled);
-    }
-    setChildGuestNumber(childGuestNumber + 1);
-    setTotalGuestNumber(totalGuestNumber + 1);
-  };
-
-  const decrementChildGuestNumber = () => {
-    const updatedChildGuestNumber = childGuestNumber - 1;
-
-    if (childGuestNumber > 0) {
-      setChildGuestNumber(updatedChildGuestNumber);
-      setTotalGuestNumber(totalGuestNumber - 1);
-    }
-
-    if (updatedChildGuestNumber === 0) {
-      setChildDecrementButtonDisabled(true);
-    }
-  };
-
-  // const handleTotalGuestNumberChnage = () => {
-
-  // }
-
-  const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
   // removing dependency array or adding fetchStays makes continuous get requests but removing it gives an error without eslint line below
 
   useEffect(() => {
     fetchStays();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [locationSearchOption]);
+
+  const guestsNumber =
+    qs.parse(window.location.search, { ignoreQueryPrefix: true }).guests ||
+    totalGuestNumber;
+
+  const location =
+    qs.parse(window.location.search, { ignoreQueryPrefix: true }).location ||
+    locationSearchOption;
 
   useEffect(() => {
-    // fetchStays();
-    if (stays.length > 0) {
-      const defaultLocation = `${stays[0].city}, ${stays[0].country}`;
-      setLocationSearchOption(defaultLocation);
-    }
-  }, [stays]);
+    console.log("this is guestsNumber", guestsNumber);
+    const resultMap = stays.map((stay) => stay);
+    const locationCity = location ? location.split(",")[0] : searchTerm;
+
+    const results =
+      resultMap.length > 0
+        ? resultMap.filter(
+            (result) =>
+              result.city.includes(locationCity) &&
+              result.maxGuests >= guestsNumber
+          )
+        : "";
+
+    console.log("results", results);
+
+    setSearchResults(results);
+  }, [
+    stays,
+    setSearchResults,
+    searchTerm,
+    location,
+    locationSearchOption,
+    guestsNumber,
+  ]);
 
   return (
     <StaysContext.Provider
       value={{
         filterDrawerVisible,
-        handleOpenFilterDrawerChange,
-        handleCloseFilterDrawerChange,
+        setFilterDrawerVisible,
         stays,
         fetchStays,
         searchTerm,
         setSearchTerm,
         searchResults,
         setSearchResults,
-        handleSearchChange,
         locationFilterVisible,
         setLocationFilterVisible,
         handleOpenLocationFilterChange,
@@ -145,15 +130,14 @@ const StaysProvider = (props) => {
         setLocationSearchOption,
         handlelocationSearchChange,
         totalGuestNumber,
+        setChildGuestNumber,
+        setAdultGuestNumber,
         setTotalGuestNumber,
         adultGuestNumber,
-        adultDecrementButtonDisabled,
-        childDecrementButtonDisabled,
-        incrementAdultGuestNumber,
-        decrementAdultGuestNumber,
         childGuestNumber,
-        incrementChildGuestNumber,
-        decrementChildGuestNumber,
+        handleSearchFormSubmit,
+        guestsNumber,
+        location,
       }}
     >
       {props.children}

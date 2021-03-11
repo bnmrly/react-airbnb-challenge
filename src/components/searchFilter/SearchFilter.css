@@ -22,20 +22,23 @@
   overflow: hidden;
 }
 
-.searchbar__input {
+.searchbar__input,
+.searchbar__guests-container {
   font-family: "Mulish", sans-serif;
   border-color: transparent;
   outline: none;
   height: 55px;
   border: none;
-}
-
-.searchbar__input {
   padding: 0 16px;
   border-right: 1px solid #f2f2f2;
 }
 
-.searchbar__button {
+.searchbar__guests-container {
+  display: flex;
+  align-items: center;
+}
+
+.searchbar__submit {
   background-color: inherit;
   height: 55px;
   width: 55px;
@@ -44,4 +47,9 @@
   justify-content: center;
   align-items: center;
   color: rgba(235, 87, 87, 0.9);
+  cursor: pointer;
+}
+
+.searchbar__submit:focus {
+  outline: none;
 }

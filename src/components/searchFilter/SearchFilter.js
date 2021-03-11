@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from "react";
+import qs from "qs";
 
 // Styles
 import "./SearchFilter.css";
@@ -15,37 +16,60 @@ function SearchBar() {
     filterDrawerVisible,
     handleOpenLocationFilterChange,
     handleOpenGuestFilterChange,
+    guestSearchInput,
+    totalGuestNumber,
+    locationSearchOption,
+    handleSearchFormSubmit,
   } = appContext;
+
+  const guestsNumber =
+    qs.parse(window.location.search, { ignoreQueryPrefix: true }).guests ||
+    totalGuestNumber;
+
+  const location =
+    qs.parse(window.location.search, { ignoreQueryPrefix: true }).location ||
+    locationSearchOption;
+
+  const disabled = guestsNumber < 1 || !location;
 
   return (
     <Fragment>
       <div
         className={`airbnb-mock__search-bar-container airbnb-mock__search-bar-container--filter-drawer-visible-${filterDrawerVisible}`}
       >
-        <form className="airbnb-mock__search-form">
+        <form
+          className="airbnb-mock__search-form"
+          onSubmit={handleSearchFormSubmit}
+        >
           <div className="searchbar__input-container">
             <input
               className="searchbar__input searchbar__input--location"
               type="text"
-              name="location"
               readOnly
-              required
+              name="location"
               id="searchFilter"
-              // make below dynamic
-              value="Helsinki, Finland"
-              // onChange={handleChange}
+              value={location}
               onClick={handleOpenLocationFilterChange}
             />
-            <input
-              className="searchbar__input searchform__input--guests"
-              readOnly
-              required
-              type="text"
-              name="guest"
-              placeholder="Add guests"
+            <div
+              className="searchbar__guests-container"
               onClick={handleOpenGuestFilterChange}
+            >
+              {guestsNumber < 1 ? "Add Guests" : `${guestsNumber} guests`}
+            </div>
+
+            <input
+              type="hidden"
+              ref={guestSearchInput}
+              name="guests"
+              readOnly
+              value={guestsNumber}
             />
-            <button className="searchbar__button" type="button">
+            <button
+              className="searchbar__submit"
+              type="submit"
+              disabled={disabled}
+            >
               <SearchIcon />
             </button>
           </div>

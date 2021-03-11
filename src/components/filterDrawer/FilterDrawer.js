@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import uniqid from "uniqid";
 
 // Styles
@@ -20,8 +20,7 @@ function SearchBar(props) {
     filterDrawerVisible,
     guestFilterVisible,
     locationFilterVisible,
-    handleCloseFilterDrawerChange,
-    stays,
+    setFilterDrawerVisible,
     uniqueCities,
     locationSearchOption,
     handlelocationSearchChange,
@@ -29,14 +28,64 @@ function SearchBar(props) {
     handleOpenGuestFilterChange,
     totalGuestNumber,
     adultGuestNumber,
-    adultDecrementButtonDisabled,
-    childDecrementButtonDisabled,
-    incrementAdultGuestNumber,
-    decrementAdultGuestNumber,
+    setChildGuestNumber,
+    setAdultGuestNumber,
+    setTotalGuestNumber,
     childGuestNumber,
-    incrementChildGuestNumber,
-    decrementChildGuestNumber,
+    handleSearchFormSubmit,
+    guestsNumber,
+    location,
   } = appContext;
+
+  const [
+    adultDecrementButtonDisabled,
+    setAdultDecrementButtonDisabled,
+  ] = useState(true);
+
+  const [
+    childDecrementButtonDisabled,
+    setChildDecrementButtonDisabled,
+  ] = useState(true);
+
+  const incrementAdultGuestNumber = () => {
+    if (adultDecrementButtonDisabled) {
+      setAdultDecrementButtonDisabled(!adultDecrementButtonDisabled);
+    }
+    setAdultGuestNumber(adultGuestNumber + 1);
+    setTotalGuestNumber(totalGuestNumber + 1);
+  };
+
+  const decrementAdultGuestNumber = () => {
+    if (adultGuestNumber > 0) {
+      setAdultGuestNumber(adultGuestNumber - 1);
+      setTotalGuestNumber(totalGuestNumber - 1);
+    } else {
+      setAdultDecrementButtonDisabled(!adultDecrementButtonDisabled);
+    }
+  };
+
+  const incrementChildGuestNumber = () => {
+    if (childDecrementButtonDisabled) {
+      setChildDecrementButtonDisabled(!childDecrementButtonDisabled);
+    }
+    setChildGuestNumber(childGuestNumber + 1);
+    setTotalGuestNumber(totalGuestNumber + 1);
+  };
+
+  const decrementChildGuestNumber = () => {
+    const updatedChildGuestNumber = childGuestNumber - 1;
+
+    if (childGuestNumber > 0) {
+      setChildGuestNumber(updatedChildGuestNumber);
+      setTotalGuestNumber(totalGuestNumber - 1);
+    }
+
+    if (updatedChildGuestNumber === 0) {
+      setChildDecrementButtonDisabled(true);
+    }
+  };
+
+  const disabledSubmit = guestsNumber < 1 || !location;
 
   return (
     <Fragment>
@@ -46,7 +95,7 @@ function SearchBar(props) {
             <p className="filter-drawer__header-text">Edit your search</p>
             <button
               className="filter-drawer__close-button"
-              onClick={handleCloseFilterDrawerChange}
+              onClick={() => setFilterDrawerVisible(!filterDrawerVisible)}
             >
               <CloseIcon />
             </button>
@@ -56,7 +105,7 @@ function SearchBar(props) {
               <div className="filter-drawer__input-container">
                 <div className="input__container input__container--location">
                   <label
-                    htmlFor="filter-drawer-location"
+                    htmlFor="filterDrawerLocation"
                     className="filter-drawer__label filter-drawer__label--location"
                   >
                     Location
@@ -69,34 +118,40 @@ function SearchBar(props) {
                     id="searchFilter"
                     placeholder="Helsinki, Finland"
                     value={locationSearchOption}
-                    // onChange={handleChange}
-                    onChange={console.log("i want to be changed")}
-                    onFocus={handleOpenLocationFilterChange}
+                    readOnly
+                    onClick={handleOpenLocationFilterChange}
                   />
                 </div>
+
                 <div className="input__container input__container--guests">
                   <label
-                    htmlFor="filter-drawer-guests"
+                    htmlFor="filterDrawerGuests"
                     className="filter-drawer__label filter-drawer__label--location"
                   >
                     Guests
                   </label>
+                  <div
+                    className="filter-drawer__input filter-drawer__input--guests"
+                    onClick={handleOpenGuestFilterChange}
+                  >
+                    {guestsNumber < 1 ? "Add Guests" : `${guestsNumber} guests`}
+                  </div>
                   <input
-                    className="filter-drawer__input filter-drawer__input --guests"
-                    required
-                    type="text"
-                    name="guest"
-                    placeholder="Add guests"
-                    onFocus={handleOpenGuestFilterChange}
-                    value={
-                      totalGuestNumber > 0 ? `${totalGuestNumber} guests` : ``
-                    }
+                    type="hidden"
+                    readOnly
+                    name="guests"
+                    value={guestsNumber}
                   />
                 </div>
               </div>
               <button
                 type="submit"
                 className="filter-drawer-form_submit-button"
+                disabled={disabledSubmit}
+                onSubmit={() => {
+                  setFilterDrawerVisible(!filterDrawerVisible);
+                  handleSearchFormSubmit();
+                }}
               >
                 <SearchIcon className="filter-drawer-form-submit-button__icon" />
                 Search
