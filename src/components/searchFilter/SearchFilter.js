@@ -17,18 +17,10 @@ function SearchBar() {
     handleOpenLocationFilterChange,
     handleOpenGuestFilterChange,
     guestSearchInput,
-    totalGuestNumber,
-    locationSearchOption,
     handleSearchFormSubmit,
+    guestsNumber,
+    location,
   } = appContext;
-
-  const guestsNumber =
-    qs.parse(window.location.search, { ignoreQueryPrefix: true }).guests ||
-    totalGuestNumber;
-
-  const location =
-    qs.parse(window.location.search, { ignoreQueryPrefix: true }).location ||
-    locationSearchOption;
 
   const disabled = guestsNumber < 1 || !location;
 
@@ -51,8 +43,17 @@ function SearchBar() {
               value={location}
               onClick={handleOpenLocationFilterChange}
             />
+            {/* below hack for better mobile styling due to input type text width REVISIT*/}
+            {/* <button
+              className="searchbar__input searchbar__input--location"
+              type="button"
+              name="location"
+              onClick={handleOpenLocationFilterChange}
+            >
+              {location}
+            </button> */}
             <div
-              className="searchbar__guests-container"
+              className={`searchbar__guests-container searchbar__guests-container--${guestsNumber}-guests`}
               onClick={handleOpenGuestFilterChange}
             >
               {guestsNumber < 1 ? "Add Guests" : `${guestsNumber} guests`}

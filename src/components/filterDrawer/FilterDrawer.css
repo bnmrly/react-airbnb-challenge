@@ -1,15 +1,18 @@
 .airbnb-mock__filter-drawer-container {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+  top: 0;
+  right: 0;
+  left: 0;
   padding: 20px 10px;
-  height: 80vh;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   padding: 0;
-  /* border: 1px solid red; */
   background-color: white;
+}
+
+.airbnb-mock__filter-drawer {
+  padding: 20px 10px;
 }
 
 .filter-drawer__header {
@@ -23,6 +26,8 @@
 
 .filter-drawer__header-text {
   margin: 0;
+  font-size: 0.8rem;
+  color: #333333;
 }
 
 .filter-drawer__close-button {
@@ -33,6 +38,7 @@
   /* hack below - revisit */
   margin: 0 0 -4px 0;
   padding: 0;
+  color: #333333;
 }
 
 .filter-drawer__container {
@@ -74,18 +80,25 @@
   outline: none;
   border: none;
   padding: 0;
+  color: #333333;
+  font-size: 0.9rem;
+}
+
+.filter-drawer__input--guests.guests-0 {
+  color: #bdbdbd;
 }
 
 .filter-drawer__label {
   padding-bottom: 5px;
   text-transform: uppercase;
   font-weight: 800;
-  font-size: 11px;
+  font-size: 0.6rem;
+  color: #333333;
 }
 
 .filter-drawer-form_submit-button {
   position: absolute;
-  bottom: -9vh;
+  bottom: 0;
   width: 126px;
   height: 48px;
   background-color: rgba(235, 87, 87, 0.9);
@@ -96,7 +109,6 @@
   align-items: center;
   justify-content: center;
   border-width: inherit;
-  /* does this center it? */
   left: 50%;
   transform: translateX(-50%);
 }
@@ -124,10 +136,13 @@
   margin-bottom: 35px;
   cursor: pointer;
   font-family: "Mulish", sans-serif;
+  color: #4f4f4f;
+  font-size: 0.9rem;
 }
 
 .filter-location-list-item__icon {
   padding-right: 8px;
+  font-size: 20px;
 }
 
 /* Guests */

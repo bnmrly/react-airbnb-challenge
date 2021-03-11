@@ -10,7 +10,7 @@ function Cards() {
 
   return (
     <Fragment>
-      {searchResults.length && (
+      {searchResults.length > 0 && (
         <div className="airbnb-mock__text-container">
           <h1 className="airbnb-mock__heading">
             {" "}
@@ -38,7 +38,7 @@ function Cards() {
               ></div>
               <div className="card__meta-container">
                 {item.superHost && (
-                  <p className="card__meta-superhost">SUPERHOST</p>
+                  <div className="card__meta-superhost">Superhost</div>
                 )}
 
                 <p className="card__meta-type">{item.type} </p>
@@ -53,12 +53,12 @@ function Cards() {
                   />
                   <p className="card__meta-rating">{item.rating}</p>
                 </div>
+                <p className="card__meta-title">{item.title}</p>
               </div>
-              <p className="card__meta-title">{item.title}</p>
             </div>
           ))
         ) : (
-          <h1>Loading...</h1>
+          <h2 className="airbnb-mock__no-results">No results available</h2>
         )}
       </div>
     </Fragment>
