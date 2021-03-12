@@ -8,6 +8,14 @@
   opacity: 0;
 }
 
+@media only screen and (min-width: 885px) {
+  .airbnb-mock__search-form {
+    position: absolute;
+    top: 0;
+    right: 35px;
+  }
+}
+
 .searchbar__input-container {
   border-radius: 16px;
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
