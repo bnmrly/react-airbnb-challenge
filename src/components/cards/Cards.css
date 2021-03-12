@@ -112,7 +112,7 @@
 
 /* match width of 2 cards */
 
-@media only screen and (min-width: 857px) {
+@media only screen and (min-width: 855px) {
   .airbnb-mock__text-container {
     width: 820px;
   }
