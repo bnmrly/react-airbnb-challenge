@@ -12,16 +12,19 @@
 .airbnb-mock__cards-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  /* offset card margin */
+  margin: -15px;
 }
 
 .airbnb-mock__card {
-  margin-right: 30px;
-  margin-bottom: 35px;
+  margin: 15px;
   width: 395px;
 }
+
 .airbnb-mock__image-container {
   height: 269px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border-radius: 15px;
 }
 
@@ -100,7 +103,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  /* keep same width as card */
+  width: 395px;
+}
+
+/* match width of 2 cards */
+
+@media only screen and (min-width: 857px) {
+  .airbnb-mock__text-container {
+    width: 820px;
+  }
+}
+
+/* match width of 3 cards */
+
+@media only screen and (min-width: 1282px) {
+  .airbnb-mock__text-container {
+    width: 1245px;
+  }
 }
 
 .airbnb-mock__result-count {
