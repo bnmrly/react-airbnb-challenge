@@ -33,6 +33,8 @@
 
 .searchbar__input--location {
   background-color: transparent;
+  /* hack for input type="text" */
+  max-width: 108px;
 }
 
 .searchbar__guests-container {
