@@ -10,20 +10,20 @@ function Cards() {
 
   return (
     <Fragment>
-      {searchResults.length > 0 && (
-        <div className="airbnb-mock__text-container">
-          <h1 className="airbnb-mock__heading">
-            {" "}
-            Stays in {searchResults[0].country}
-          </h1>
-          <p className="airbnb-mock__result-count">
-            {searchResults.length >= 1
-              ? `${searchResults.length - 1}+ stays`
-              : `${searchResults.length} stay`}
-          </p>
-        </div>
-      )}
       <div className="airbnb-mock__cards-container">
+        {searchResults.length > 0 && (
+          <div className="airbnb-mock__text-container">
+            <h1 className="airbnb-mock__heading">
+              {" "}
+              Stays in {searchResults[0].country}
+            </h1>
+            <p className="airbnb-mock__result-count">
+              {searchResults.length >= 1
+                ? `${searchResults.length - 1}+ stays`
+                : `${searchResults.length} stay`}
+            </p>
+          </div>
+        )}
         {searchResults.length ? (
           searchResults.map((item) => (
             <div className="airbnb-mock__card" key={uniqid()}>

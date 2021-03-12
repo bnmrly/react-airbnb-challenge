@@ -117,10 +117,6 @@
   margin-right: 5px;
 }
 
-/* .filter-drawer__location-guests-container {
- 
-} */
-
 .filter-drawer__filter {
   font-family: "Mulish", sans-serif;
 }
@@ -149,6 +145,8 @@
 
 .filter-drawer-guests__container {
   padding: 0 16px;
+  font-size: 0.9rem;
+  color: #333333;
 }
 
 .filter-drawer-guests__container--adults {
@@ -164,6 +162,7 @@
 
 .filter-drawer__meta {
   margin: 0 0 15px 0;
+  color: #bdbdbd;
 }
 
 .filter-drawer-guests__button-container {

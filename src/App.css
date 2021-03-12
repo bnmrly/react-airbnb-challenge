@@ -7,6 +7,17 @@ body {
   position: relative;
 }
 
+.airbnb-mock__container {
+  /* match width of 3 cards */
+  max-width: 1282px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  /* offset negative margin of cards container and remove horzontal scrollbars */
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .airbnb-mock__logo--filter-drawer-visible-true {
   opacity: 0;
 }
