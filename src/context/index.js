@@ -23,6 +23,8 @@ const StaysProvider = (props) => {
     +qs.parse(window.location.search, { ignoreQueryPrefix: true }).guests || 0
   );
 
+  const [loading, setLoading] = useState(true);
+
   const handleOpenLocationFilterChange = () => {
     setFilterDrawerVisible(true);
     setLocationFilterVisible(true);
@@ -51,10 +53,14 @@ const StaysProvider = (props) => {
   const url = `https://gist.githubusercontent.com/bnmrly/017a87ef0b50c39e778c427a6b4bee60/raw/2f316eae029b7cedd6e0b808b07655e2d40f7281/holidays.json`;
 
   const fetchStays = () => {
+    if (!loading) {
+      setLoading(true);
+    }
     fetch(url)
       .then((response) => response.json())
       .then((staysData) => {
         setStays(staysData);
+        setLoading(false);
 
         if (staysData.length > 0) {
           const defaultLocation = `${staysData[0].city}, ${staysData[0].country}`;
@@ -81,10 +87,6 @@ const StaysProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationSearchOption]);
 
-  // const location =
-  //   qs.parse(window.location.search, { ignoreQueryPrefix: true }).location ||
-  //   locationSearchOption;
-
   useEffect(() => {
     const resultMap = stays.map((stay) => stay);
     const locationCity = locationSearchOption
@@ -98,7 +100,7 @@ const StaysProvider = (props) => {
               result.city.includes(locationCity) &&
               result.maxGuests >= totalGuestNumber
           )
-        : "";
+        : [];
     setSearchResults(results);
   }, [
     stays,
@@ -136,6 +138,7 @@ const StaysProvider = (props) => {
         adultGuestNumber,
         childGuestNumber,
         handleSearchFormSubmit,
+        loading,
       }}
     >
       {props.children}

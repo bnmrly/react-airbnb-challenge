@@ -6,7 +6,7 @@ import uniqid from "uniqid";
 
 function Cards() {
   const appContext = useContext(StaysContext);
-  const { searchResults } = appContext;
+  const { searchResults, loading } = appContext;
 
   return (
     <Fragment>
@@ -24,7 +24,7 @@ function Cards() {
             </p>
           </div>
         )}
-        {searchResults.length ? (
+        {searchResults.length > 0 &&
           searchResults.map((item) => (
             <div className="airbnb-mock__card" key={uniqid()}>
               <div
@@ -56,10 +56,11 @@ function Cards() {
                 <p className="card__meta-title">{item.title}</p>
               </div>
             </div>
-          ))
-        ) : (
+          ))}
+        {!loading && searchResults.length === 0 && (
           <h2 className="airbnb-mock__no-results">No results available</h2>
         )}
+        {loading && <h2 className="airbnb-mock__loading">Loading...</h2>}
       </div>
     </Fragment>
   );
