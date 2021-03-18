@@ -32,10 +32,8 @@ function SearchBar(props) {
     setChildGuestNumber,
     setAdultGuestNumber,
     setTotalGuestNumber,
-
     handleSearchFormSubmit,
     guestsNumber,
-    location,
   } = appContext;
 
   const incrementAdultGuestNumber = () => {
@@ -64,7 +62,7 @@ function SearchBar(props) {
     }
   };
 
-  const disabledSubmit = guestsNumber < 1 || !location;
+  const disabledSubmit = guestsNumber < 1 || !locationSearchOption;
 
   return (
     <Fragment>

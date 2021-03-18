@@ -9,7 +9,9 @@ const StaysProvider = (props) => {
   const [guestFilterVisible, setGuestFilterVisible] = useState(false);
   const [stays, setStays] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [locationSearchOption, setLocationSearchOption] = useState("");
+  const [locationSearchOption, setLocationSearchOption] = useState(
+    qs.parse(window.location.search, { ignoreQueryPrefix: true }).location || ""
+  );
   const [searchResults, setSearchResults] = useState([]);
   const [adultGuestNumber, setAdultGuestNumber] = useState(
     +qs.parse(window.location.search, { ignoreQueryPrefix: true }).adults || 0
@@ -33,7 +35,6 @@ const StaysProvider = (props) => {
     setLocationFilterVisible(false);
   };
 
-  // manage with state
   const handlelocationSearchChange = (e) => {
     setLocationSearchOption(e.target.innerText);
   };
@@ -80,13 +81,15 @@ const StaysProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationSearchOption]);
 
-  const location =
-    qs.parse(window.location.search, { ignoreQueryPrefix: true }).location ||
-    locationSearchOption;
+  // const location =
+  //   qs.parse(window.location.search, { ignoreQueryPrefix: true }).location ||
+  //   locationSearchOption;
 
   useEffect(() => {
     const resultMap = stays.map((stay) => stay);
-    const locationCity = location ? location.split(",")[0] : searchTerm;
+    const locationCity = locationSearchOption
+      ? locationSearchOption.split(",")[0]
+      : searchTerm;
 
     const results =
       resultMap.length > 0
@@ -101,7 +104,6 @@ const StaysProvider = (props) => {
     stays,
     setSearchResults,
     searchTerm,
-    location,
     locationSearchOption,
     totalGuestNumber,
   ]);
@@ -134,7 +136,6 @@ const StaysProvider = (props) => {
         adultGuestNumber,
         childGuestNumber,
         handleSearchFormSubmit,
-        location,
       }}
     >
       {props.children}

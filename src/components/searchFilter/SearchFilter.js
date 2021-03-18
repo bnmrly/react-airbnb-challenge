@@ -20,10 +20,10 @@ function SearchBar() {
     totalGuestNumber,
     childGuestNumber,
     adultGuestNumber,
-    location,
+    locationSearchOption,
   } = appContext;
 
-  const disabled = totalGuestNumber < 1 || !location;
+  const disabled = totalGuestNumber < 1 || !locationSearchOption;
 
   return (
     <Fragment>
@@ -41,7 +41,7 @@ function SearchBar() {
               readOnly
               name="location"
               id="searchFilter"
-              value={location}
+              value={locationSearchOption}
               onClick={handleOpenLocationFilterChange}
             />
             {/* below hack for better mobile styling due to input type text width REVISIT*/}
