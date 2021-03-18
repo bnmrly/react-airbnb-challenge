@@ -41,18 +41,10 @@ function SearchBar() {
               readOnly
               name="location"
               id="searchFilter"
+              placeholder="Helsinki, Finland"
               value={locationSearchOption}
               onClick={handleOpenLocationFilterChange}
             />
-            {/* below hack for better mobile styling due to input type text width REVISIT*/}
-            {/* <button
-              className="searchbar__input searchbar__input--location"
-              type="button"
-              name="location"
-              onClick={handleOpenLocationFilterChange}
-            >
-              {location}
-            </button> */}
             <div
               className={`searchbar__guests-container searchbar__guests-container--${totalGuestNumber}-guests`}
               onClick={handleOpenGuestFilterChange}

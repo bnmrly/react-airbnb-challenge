@@ -7,7 +7,6 @@ const StaysProvider = (props) => {
   const [filterDrawerVisible, setFilterDrawerVisible] = useState(false);
   const [locationFilterVisible, setLocationFilterVisible] = useState(false);
   const [guestFilterVisible, setGuestFilterVisible] = useState(false);
-  const [stays, setStays] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [locationSearchOption, setLocationSearchOption] = useState(
     qs.parse(window.location.search, { ignoreQueryPrefix: true }).location || ""
@@ -46,76 +45,62 @@ const StaysProvider = (props) => {
   // const locationSearchInput = useRef(null);
 
   const uniqueCities =
-    stays.length > 0
-      ? [...new Set(stays.map((stay) => `${stay.city}, ${stay.country}`))]
+    searchResults.length > 0
+      ? [
+          ...new Set(
+            searchResults.map((stay) => `${stay.city}, ${stay.country}`)
+          ),
+        ]
       : [];
 
   const url = `https://gist.githubusercontent.com/bnmrly/017a87ef0b50c39e778c427a6b4bee60/raw/2f316eae029b7cedd6e0b808b07655e2d40f7281/holidays.json`;
 
   const fetchStays = () => {
-    if (!loading) {
-      setLoading(true);
-    }
-    fetch(url)
+    return fetch(url)
       .then((response) => response.json())
       .then((staysData) => {
-        setStays(staysData);
-        setLoading(false);
-
-        if (staysData.length > 0) {
-          const defaultLocation = `${staysData[0].city}, ${staysData[0].country}`;
-          if (!locationSearchOption) {
-            setLocationSearchOption(defaultLocation);
-          }
-        }
+        return staysData;
       })
       .catch((err) => console.log(err.message));
   };
 
   const handleSearchFormSubmit = (e) => {
-    // e.preventDefault();
-    // console.log("this is e", e);
-    console.log("this is stays", stays);
-    // e.preventDefault();
-    // this fn displays properties
+    console.log(e);
   };
 
-  // removing dependency array or adding fetchStays makes continuous get requests but removing it gives an error without eslint line below
-
   useEffect(() => {
-    fetchStays();
+    setLoading(true);
+    fetchStays().then((staysData) => {
+      setLoading(false);
+      if (staysData.length > 0) {
+        const defaultLocation = `${staysData[0].city}, ${staysData[0].country}`;
+        if (!locationSearchOption) {
+          setLocationSearchOption(defaultLocation);
+        }
+      }
+      const resultMap = staysData.map((stay) => stay);
+      const locationCity = locationSearchOption
+        ? locationSearchOption.split(",")[0]
+        : searchTerm;
+
+      const results =
+        resultMap.length > 0
+          ? resultMap.filter(
+              (result) =>
+                result.city.includes(locationCity) &&
+                result.maxGuests >= totalGuestNumber
+            )
+          : [];
+      setSearchResults(results);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [locationSearchOption]);
-
-  useEffect(() => {
-    const resultMap = stays.map((stay) => stay);
-    const locationCity = locationSearchOption
-      ? locationSearchOption.split(",")[0]
-      : searchTerm;
-
-    const results =
-      resultMap.length > 0
-        ? resultMap.filter(
-            (result) =>
-              result.city.includes(locationCity) &&
-              result.maxGuests >= totalGuestNumber
-          )
-        : [];
-    setSearchResults(results);
-  }, [
-    stays,
-    setSearchResults,
-    searchTerm,
-    locationSearchOption,
-    totalGuestNumber,
-  ]);
+  }, []);
 
   return (
     <StaysContext.Provider
       value={{
         filterDrawerVisible,
         setFilterDrawerVisible,
-        stays,
         fetchStays,
         searchTerm,
         setSearchTerm,
