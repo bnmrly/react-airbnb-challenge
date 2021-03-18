@@ -1,5 +1,4 @@
 import React, { Fragment, useContext } from "react";
-import qs from "qs";
 
 // Styles
 import "./SearchFilter.css";
@@ -18,11 +17,13 @@ function SearchBar() {
     handleOpenGuestFilterChange,
     guestSearchInput,
     handleSearchFormSubmit,
-    guestsNumber,
+    totalGuestNumber,
+    childGuestNumber,
+    adultGuestNumber,
     location,
   } = appContext;
 
-  const disabled = guestsNumber < 1 || !location;
+  const disabled = totalGuestNumber < 1 || !location;
 
   return (
     <Fragment>
@@ -53,10 +54,12 @@ function SearchBar() {
               {location}
             </button> */}
             <div
-              className={`searchbar__guests-container searchbar__guests-container--${guestsNumber}-guests`}
+              className={`searchbar__guests-container searchbar__guests-container--${totalGuestNumber}-guests`}
               onClick={handleOpenGuestFilterChange}
             >
-              {guestsNumber < 1 ? "Add Guests" : `${guestsNumber} guests`}
+              {totalGuestNumber < 1
+                ? "Add Guests"
+                : `${totalGuestNumber} guests`}
             </div>
 
             <input
@@ -64,7 +67,21 @@ function SearchBar() {
               ref={guestSearchInput}
               name="guests"
               readOnly
-              value={guestsNumber}
+              value={totalGuestNumber}
+            />
+            <input
+              type="hidden"
+              ref={guestSearchInput}
+              name="children"
+              readOnly
+              value={childGuestNumber}
+            />
+            <input
+              type="hidden"
+              ref={guestSearchInput}
+              name="adults"
+              readOnly
+              value={adultGuestNumber}
             />
             <button
               className="searchbar__submit"

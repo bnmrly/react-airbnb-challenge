@@ -11,9 +11,15 @@ const StaysProvider = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [locationSearchOption, setLocationSearchOption] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [adultGuestNumber, setAdultGuestNumber] = useState(0);
-  const [childGuestNumber, setChildGuestNumber] = useState(0);
-  const [totalGuestNumber, setTotalGuestNumber] = useState(0);
+  const [adultGuestNumber, setAdultGuestNumber] = useState(
+    +qs.parse(window.location.search, { ignoreQueryPrefix: true }).adults || 0
+  );
+  const [childGuestNumber, setChildGuestNumber] = useState(
+    +qs.parse(window.location.search, { ignoreQueryPrefix: true }).children || 0
+  );
+  const [totalGuestNumber, setTotalGuestNumber] = useState(
+    +qs.parse(window.location.search, { ignoreQueryPrefix: true }).guests || 0
+  );
 
   const handleOpenLocationFilterChange = () => {
     setFilterDrawerVisible(true);
@@ -74,16 +80,11 @@ const StaysProvider = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationSearchOption]);
 
-  const guestsNumber =
-    qs.parse(window.location.search, { ignoreQueryPrefix: true }).guests ||
-    totalGuestNumber;
-
   const location =
     qs.parse(window.location.search, { ignoreQueryPrefix: true }).location ||
     locationSearchOption;
 
   useEffect(() => {
-    console.log("this is guestsNumber", guestsNumber);
     const resultMap = stays.map((stay) => stay);
     const locationCity = location ? location.split(",")[0] : searchTerm;
 
@@ -92,12 +93,9 @@ const StaysProvider = (props) => {
         ? resultMap.filter(
             (result) =>
               result.city.includes(locationCity) &&
-              result.maxGuests >= guestsNumber
+              result.maxGuests >= totalGuestNumber
           )
         : "";
-
-    console.log("results", results);
-
     setSearchResults(results);
   }, [
     stays,
@@ -105,7 +103,7 @@ const StaysProvider = (props) => {
     searchTerm,
     location,
     locationSearchOption,
-    guestsNumber,
+    totalGuestNumber,
   ]);
 
   return (
@@ -136,7 +134,6 @@ const StaysProvider = (props) => {
         adultGuestNumber,
         childGuestNumber,
         handleSearchFormSubmit,
-        guestsNumber,
         location,
       }}
     >

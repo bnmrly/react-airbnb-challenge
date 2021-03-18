@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import uniqid from "uniqid";
 
 // Styles
@@ -26,31 +26,19 @@ function SearchBar(props) {
     handlelocationSearchChange,
     handleOpenLocationFilterChange,
     handleOpenGuestFilterChange,
-    totalGuestNumber,
+    childGuestNumber,
     adultGuestNumber,
+    totalGuestNumber,
     setChildGuestNumber,
     setAdultGuestNumber,
     setTotalGuestNumber,
-    childGuestNumber,
+
     handleSearchFormSubmit,
     guestsNumber,
     location,
   } = appContext;
 
-  const [
-    adultDecrementButtonDisabled,
-    setAdultDecrementButtonDisabled,
-  ] = useState(true);
-
-  const [
-    childDecrementButtonDisabled,
-    setChildDecrementButtonDisabled,
-  ] = useState(true);
-
   const incrementAdultGuestNumber = () => {
-    if (adultDecrementButtonDisabled) {
-      setAdultDecrementButtonDisabled(!adultDecrementButtonDisabled);
-    }
     setAdultGuestNumber(adultGuestNumber + 1);
     setTotalGuestNumber(totalGuestNumber + 1);
   };
@@ -59,15 +47,10 @@ function SearchBar(props) {
     if (adultGuestNumber > 0) {
       setAdultGuestNumber(adultGuestNumber - 1);
       setTotalGuestNumber(totalGuestNumber - 1);
-    } else {
-      setAdultDecrementButtonDisabled(!adultDecrementButtonDisabled);
     }
   };
 
   const incrementChildGuestNumber = () => {
-    if (childDecrementButtonDisabled) {
-      setChildDecrementButtonDisabled(!childDecrementButtonDisabled);
-    }
     setChildGuestNumber(childGuestNumber + 1);
     setTotalGuestNumber(totalGuestNumber + 1);
   };
@@ -78,10 +61,6 @@ function SearchBar(props) {
     if (childGuestNumber > 0) {
       setChildGuestNumber(updatedChildGuestNumber);
       setTotalGuestNumber(totalGuestNumber - 1);
-    }
-
-    if (updatedChildGuestNumber === 0) {
-      setChildDecrementButtonDisabled(true);
     }
   };
 
@@ -132,18 +111,30 @@ function SearchBar(props) {
                       Guests
                     </label>
                     <div
-                      className={`filter-drawer__input filter-drawer__input--guests guests-${guestsNumber}`}
+                      className={`filter-drawer__input filter-drawer__input--guests guests-${totalGuestNumber}`}
                       onClick={handleOpenGuestFilterChange}
                     >
-                      {guestsNumber < 1
+                      {totalGuestNumber < 1
                         ? "Add Guests"
-                        : `${guestsNumber} guests`}
+                        : `${totalGuestNumber} guests`}
                     </div>
                     <input
                       type="hidden"
                       readOnly
                       name="guests"
-                      value={guestsNumber}
+                      value={totalGuestNumber}
+                    />
+                    <input
+                      type="hidden"
+                      readOnly
+                      name="children"
+                      value={childGuestNumber}
+                    />
+                    <input
+                      type="hidden"
+                      readOnly
+                      name="adults"
+                      value={adultGuestNumber}
                     />
                   </div>
                 </div>
@@ -186,8 +177,10 @@ function SearchBar(props) {
                       <p className="filter-drawer__meta">Ages 13 or above </p>
                       <div className="filter-drawer-guests__button-container filter-drawer-guests__button-container--adults">
                         <button
-                          className={`filter-drawer__guest-button filter-drawer__guest-button--decrement filter-drawer-guest-button__decrement--disabled-${adultDecrementButtonDisabled}`}
-                          disabled={adultDecrementButtonDisabled}
+                          className={`filter-drawer__guest-button filter-drawer__guest-button--decrement filter-drawer-guest-button__decrement--disabled-${
+                            adultGuestNumber < 1
+                          }`}
+                          disabled={adultGuestNumber < 1}
                           onClick={decrementAdultGuestNumber}
                         >
                           <RemoveIcon />
@@ -210,8 +203,10 @@ function SearchBar(props) {
                       <p className="filter-drawer__meta">Ages 2-12</p>
                       <div className="filter-drawer-guests__button-container filter-drawer-guests__button-container--children">
                         <button
-                          className={`filter-drawer__guest-button filter-drawer__guest-button--decrement filter-drawer-guest-button__decrement--disabled-${childDecrementButtonDisabled}`}
-                          disabled={childDecrementButtonDisabled}
+                          className={`filter-drawer__guest-button filter-drawer__guest-button--decrement filter-drawer-guest-button__decrement--disabled-${
+                            childGuestNumber < 1
+                          }`}
+                          disabled={childGuestNumber < 1}
                           onClick={decrementChildGuestNumber}
                         >
                           <RemoveIcon />
