@@ -1,5 +1,4 @@
 import React, { Fragment, useContext } from "react";
-import qs from "qs";
 
 // Styles
 import "./SearchFilter.css";
@@ -18,11 +17,13 @@ function SearchBar() {
     handleOpenGuestFilterChange,
     guestSearchInput,
     handleSearchFormSubmit,
-    guestsNumber,
-    location,
+    totalGuestNumber,
+    childGuestNumber,
+    adultGuestNumber,
+    locationSearchOption,
   } = appContext;
 
-  const disabled = guestsNumber < 1 || !location;
+  const disabled = totalGuestNumber < 1 || !locationSearchOption;
 
   return (
     <Fragment>
@@ -40,23 +41,17 @@ function SearchBar() {
               readOnly
               name="location"
               id="searchFilter"
-              value={location}
+              placeholder="Helsinki, Finland"
+              value={locationSearchOption}
               onClick={handleOpenLocationFilterChange}
             />
-            {/* below hack for better mobile styling due to input type text width REVISIT*/}
-            {/* <button
-              className="searchbar__input searchbar__input--location"
-              type="button"
-              name="location"
-              onClick={handleOpenLocationFilterChange}
-            >
-              {location}
-            </button> */}
             <div
-              className={`searchbar__guests-container searchbar__guests-container--${guestsNumber}-guests`}
+              className={`searchbar__guests-container searchbar__guests-container--${totalGuestNumber}-guests`}
               onClick={handleOpenGuestFilterChange}
             >
-              {guestsNumber < 1 ? "Add Guests" : `${guestsNumber} guests`}
+              {totalGuestNumber < 1
+                ? "Add Guests"
+                : `${totalGuestNumber} guests`}
             </div>
 
             <input
@@ -64,7 +59,21 @@ function SearchBar() {
               ref={guestSearchInput}
               name="guests"
               readOnly
-              value={guestsNumber}
+              value={totalGuestNumber}
+            />
+            <input
+              type="hidden"
+              ref={guestSearchInput}
+              name="children"
+              readOnly
+              value={childGuestNumber}
+            />
+            <input
+              type="hidden"
+              ref={guestSearchInput}
+              name="adults"
+              readOnly
+              value={adultGuestNumber}
             />
             <button
               className="searchbar__submit"
