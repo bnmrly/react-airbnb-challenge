@@ -24,6 +24,8 @@ const StaysProvider = (props) => {
 
   const [loading, setLoading] = useState(true);
 
+  const [uniqueLocations, setuniqueLocations] = useState([]);
+
   const handleOpenLocationFilterChange = () => {
     setFilterDrawerVisible(true);
     setLocationFilterVisible(true);
@@ -43,15 +45,6 @@ const StaysProvider = (props) => {
   // const guestSearchInput = useRef(null);
 
   // const locationSearchInput = useRef(null);
-
-  const uniqueCities =
-    searchResults.length > 0
-      ? [
-          ...new Set(
-            searchResults.map((stay) => `${stay.city}, ${stay.country}`)
-          ),
-        ]
-      : [];
 
   const url = `https://gist.githubusercontent.com/bnmrly/017a87ef0b50c39e778c427a6b4bee60/raw/2f316eae029b7cedd6e0b808b07655e2d40f7281/holidays.json`;
 
@@ -74,6 +67,11 @@ const StaysProvider = (props) => {
       setLoading(false);
       if (staysData.length > 0) {
         const defaultLocation = `${staysData[0].city}, ${staysData[0].country}`;
+
+        const cities = [
+          ...new Set(staysData.map((stay) => `${stay.city}, ${stay.country}`)),
+        ];
+        setuniqueLocations(cities);
         if (!locationSearchOption) {
           setLocationSearchOption(defaultLocation);
         }
@@ -112,7 +110,7 @@ const StaysProvider = (props) => {
         guestFilterVisible,
         setGuestFilterVisible,
         handleOpenGuestFilterChange,
-        uniqueCities,
+        uniqueLocations,
         locationSearchOption,
         setLocationSearchOption,
         handlelocationSearchChange,
