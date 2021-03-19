@@ -21,7 +21,7 @@ function SearchBar(props) {
     guestFilterVisible,
     locationFilterVisible,
     setFilterDrawerVisible,
-    uniqueCities,
+    uniqueLocations,
     locationSearchOption,
     handlelocationSearchChange,
     handleOpenLocationFilterChange,
@@ -153,7 +153,7 @@ function SearchBar(props) {
                 {locationFilterVisible && (
                   <div className="filter-drawer__filter filter-drawer__filter--location">
                     <ul className="filter-location__list">
-                      {uniqueCities.map((city) => (
+                      {uniqueLocations.map((city) => (
                         <li
                           className="filter-location__list-item"
                           key={uniqid()}
