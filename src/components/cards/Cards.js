@@ -18,8 +18,8 @@ function Cards() {
               Stays in {searchResults[0].country}
             </h1>
             <p className="airbnb-mock__result-count">
-              {searchResults.length >= 1
-                ? `${searchResults.length - 1}+ stays`
+              {searchResults.length > 1
+                ? `${searchResults.length} stays`
                 : `${searchResults.length} stay`}
             </p>
           </div>
