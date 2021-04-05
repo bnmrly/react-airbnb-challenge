@@ -14,7 +14,7 @@ import SearchIcon from "@material-ui/icons/Search";
 // Context
 import { StaysContext } from "../../context/index";
 
-function SearchBar(props) {
+function FilterDrawer(props) {
   const appContext = useContext(StaysContext);
   const {
     filterDrawerVisible,
@@ -78,64 +78,63 @@ function SearchBar(props) {
                 <CloseIcon />
               </button>
             </div>
-            <div className="filter-drawer__container">
+            <div className="filter-drawer__form-container">
               <form className="filter-drawer__form">
-                <div className="filter-drawer__input-container">
-                  <div className="input__container input__container--location">
-                    <label
-                      htmlFor="filterDrawerLocation"
-                      className="filter-drawer__label filter-drawer__label--location"
-                    >
-                      Location
-                    </label>
-                    <input
-                      className="filter-drawer__input filter-drawer__input--location"
-                      type="text"
-                      name="location"
-                      required
-                      id="searchFilter"
-                      placeholder="Helsinki, Finland"
-                      value={locationSearchOption}
-                      readOnly
-                      onClick={handleOpenLocationFilterChange}
-                    />
-                  </div>
-
-                  <div className="input__container input__container--guests">
-                    <label
-                      htmlFor="filterDrawerGuests"
-                      className="filter-drawer__label filter-drawer__label--location"
-                    >
-                      Guests
-                    </label>
-                    <div
-                      className={`filter-drawer__input filter-drawer__input--guests guests-${totalGuestNumber}`}
-                      onClick={handleOpenGuestFilterChange}
-                    >
-                      {totalGuestNumber < 1
-                        ? "Add Guests"
-                        : `${totalGuestNumber} guests`}
-                    </div>
-                    <input
-                      type="hidden"
-                      readOnly
-                      name="guests"
-                      value={totalGuestNumber}
-                    />
-                    <input
-                      type="hidden"
-                      readOnly
-                      name="children"
-                      value={childGuestNumber}
-                    />
-                    <input
-                      type="hidden"
-                      readOnly
-                      name="adults"
-                      value={adultGuestNumber}
-                    />
-                  </div>
+                <div className="input__container input__container--location">
+                  <label
+                    htmlFor="filterDrawerLocation"
+                    className="filter-drawer__label filter-drawer__label--location"
+                  >
+                    Location
+                  </label>
+                  <input
+                    className="filter-drawer__input filter-drawer__input--location"
+                    type="text"
+                    name="location"
+                    required
+                    id="searchFilter"
+                    placeholder="Helsinki, Finland"
+                    value={locationSearchOption}
+                    readOnly
+                    onClick={handleOpenLocationFilterChange}
+                  />
                 </div>
+
+                <div className="input__container input__container--guests">
+                  <label
+                    htmlFor="filterDrawerGuests"
+                    className="filter-drawer__label filter-drawer__label--location"
+                  >
+                    Guests
+                  </label>
+                  <div
+                    className={`filter-drawer__input filter-drawer__input--guests guests-${totalGuestNumber}`}
+                    onClick={handleOpenGuestFilterChange}
+                  >
+                    {totalGuestNumber < 1
+                      ? "Add Guests"
+                      : `${totalGuestNumber} guests`}
+                  </div>
+                  <input
+                    type="hidden"
+                    readOnly
+                    name="guests"
+                    value={totalGuestNumber}
+                  />
+                  <input
+                    type="hidden"
+                    readOnly
+                    name="children"
+                    value={childGuestNumber}
+                  />
+                  <input
+                    type="hidden"
+                    readOnly
+                    name="adults"
+                    value={adultGuestNumber}
+                  />
+                </div>
+
                 <button
                   type="submit"
                   className="filter-drawer-form_submit-button"
@@ -149,80 +148,80 @@ function SearchBar(props) {
                   Search
                 </button>
               </form>
-              <div className="filter-drawer__location-guests-container">
-                {locationFilterVisible && (
-                  <div className="filter-drawer__filter filter-drawer__filter--location">
-                    <ul className="filter-location__list">
-                      {uniqueLocations.map((city) => (
-                        <li
-                          className="filter-location__list-item"
-                          key={uniqid()}
-                          onClick={handlelocationSearchChange}
-                        >
-                          <LocationOnIcon className="filter-location-list-item__icon" />
-                          {city}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {guestFilterVisible && (
-                  <div className="filter-drawer__filter filter-drawer__filter--guests">
-                    <div className="filter-drawer-guests__container filter-drawer-guests__container--adults">
-                      <p className="filter-drawer-guests__title filter-drawer-guests__title--adults">
-                        Adults
+            </div>
+            <div className="filter-drawer__location-guests-container">
+              {locationFilterVisible && (
+                <div className="filter-drawer__filter filter-drawer__filter--location">
+                  <ul className="filter-location__list">
+                    {uniqueLocations.map((city) => (
+                      <li
+                        className="filter-location__list-item"
+                        key={uniqid()}
+                        onClick={handlelocationSearchChange}
+                      >
+                        <LocationOnIcon className="filter-location-list-item__icon" />
+                        {city}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {guestFilterVisible && (
+                <div className="filter-drawer__filter filter-drawer__filter--guests">
+                  <div className="filter-drawer-guests__container filter-drawer-guests__container--adults">
+                    <p className="filter-drawer-guests__title filter-drawer-guests__title--adults">
+                      Adults
+                    </p>
+                    <p className="filter-drawer__meta">Ages 13 or above </p>
+                    <div className="filter-drawer-guests__button-container filter-drawer-guests__button-container--adults">
+                      <button
+                        className={`filter-drawer__guest-button filter-drawer__guest-button--decrement filter-drawer-guest-button__decrement--disabled-${
+                          adultGuestNumber < 1
+                        }`}
+                        disabled={adultGuestNumber < 1}
+                        onClick={decrementAdultGuestNumber}
+                      >
+                        <RemoveIcon />
+                      </button>
+                      <p className="filter-drawer-guest__number-value filter-drawer-guest__number-value--adults">
+                        {adultGuestNumber}
                       </p>
-                      <p className="filter-drawer__meta">Ages 13 or above </p>
-                      <div className="filter-drawer-guests__button-container filter-drawer-guests__button-container--adults">
-                        <button
-                          className={`filter-drawer__guest-button filter-drawer__guest-button--decrement filter-drawer-guest-button__decrement--disabled-${
-                            adultGuestNumber < 1
-                          }`}
-                          disabled={adultGuestNumber < 1}
-                          onClick={decrementAdultGuestNumber}
-                        >
-                          <RemoveIcon />
-                        </button>
-                        <p className="filter-drawer-guest__number-value filter-drawer-guest__number-value--adults">
-                          {adultGuestNumber}
-                        </p>
-                        <button
-                          className="filter-drawer__guest-button filter-drawer__guest-button--increment"
-                          onClick={incrementAdultGuestNumber}
-                        >
-                          <AddIcon />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="filter-drawer-guests__container filter-drawer-guests__container--children">
-                      <p className="filter-drawer-guests__title filter-drawer-guests__title--children">
-                        Children
-                      </p>
-                      <p className="filter-drawer__meta">Ages 2-12</p>
-                      <div className="filter-drawer-guests__button-container filter-drawer-guests__button-container--children">
-                        <button
-                          className={`filter-drawer__guest-button filter-drawer__guest-button--decrement filter-drawer-guest-button__decrement--disabled-${
-                            childGuestNumber < 1
-                          }`}
-                          disabled={childGuestNumber < 1}
-                          onClick={decrementChildGuestNumber}
-                        >
-                          <RemoveIcon />
-                        </button>
-                        <p className="filter-drawer-guest__number-value filter-drawer-guest__number-value--children">
-                          {childGuestNumber}
-                        </p>
-                        <button
-                          className="filter-drawer__guest-button filter-drawer__guest-button--increment"
-                          onClick={incrementChildGuestNumber}
-                        >
-                          <AddIcon />
-                        </button>
-                      </div>
+                      <button
+                        className="filter-drawer__guest-button filter-drawer__guest-button--increment"
+                        onClick={incrementAdultGuestNumber}
+                      >
+                        <AddIcon />
+                      </button>
                     </div>
                   </div>
-                )}
-              </div>
+                  <div className="filter-drawer-guests__container filter-drawer-guests__container--children">
+                    <p className="filter-drawer-guests__title filter-drawer-guests__title--children">
+                      Children
+                    </p>
+                    <p className="filter-drawer__meta">Ages 2-12</p>
+                    <div className="filter-drawer-guests__button-container filter-drawer-guests__button-container--children">
+                      <button
+                        className={`filter-drawer__guest-button filter-drawer__guest-button--decrement filter-drawer-guest-button__decrement--disabled-${
+                          childGuestNumber < 1
+                        }`}
+                        disabled={childGuestNumber < 1}
+                        onClick={decrementChildGuestNumber}
+                      >
+                        <RemoveIcon />
+                      </button>
+                      <p className="filter-drawer-guest__number-value filter-drawer-guest__number-value--children">
+                        {childGuestNumber}
+                      </p>
+                      <button
+                        className="filter-drawer__guest-button filter-drawer__guest-button--increment"
+                        onClick={incrementChildGuestNumber}
+                      >
+                        <AddIcon />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -231,4 +230,4 @@ function SearchBar(props) {
   );
 }
 
-export default SearchBar;
+export default FilterDrawer;

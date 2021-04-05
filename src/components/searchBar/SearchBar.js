@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from "react";
 
 // Styles
-import "./SearchFilter.css";
+import "./SearchBar.css";
 
 // Assets
 import SearchIcon from "@material-ui/icons/Search";

@@ -1,19 +1,18 @@
 .airbnb-mock__search-bar-container {
-  margin: 40px 0 20px 0;
   display: flex;
-  justify-content: center;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 576px) {
+  .airbnb-mock__search-bar-container {
+    margin-right: 0;
+  }
 }
 
 .airbnb-mock__search-bar-container--filter-drawer-visible-true {
   opacity: 0;
-}
-
-@media only screen and (min-width: 885px) {
-  .airbnb-mock__search-form {
-    position: absolute;
-    top: 0;
-    right: 35px;
-  }
 }
 
 .searchbar__input-container {
