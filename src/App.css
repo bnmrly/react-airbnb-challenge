@@ -4,18 +4,37 @@ body {
 
 .App {
   padding: 20px 10px;
-  position: relative;
+}
+
+@media screen and (min-width: 1200px) {
+  .App {
+    padding: 40px 80px;
+  }
 }
 
 .airbnb-mock__container {
-  /* match width of 3 cards */
-  max-width: 1282px;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  /* offset negative margin of cards container and remove horzontal scrollbars */
-  padding-left: 15px;
-  padding-right: 15px;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-areas:
+    "airbnb-mock__header"
+    "airbnb-mock__text-container"
+    "airbnb-mock__cards-container";
+  grid-template-rows: 120px 80px auto;
+  grid-template-columns: 100%;
+}
+
+.airbnb-mock__header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 576px) {
+  .airbnb-mock__header {
+    flex-direction: row;
+  }
 }
 
 .airbnb-mock__logo--filter-drawer-visible-true {
